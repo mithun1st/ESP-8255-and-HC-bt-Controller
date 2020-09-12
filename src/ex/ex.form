@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="Code for NodeMCU"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jPanel1" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="66" green="66" red="66" type="rgb"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jScrollPane2" max="32767" attributes="0"/>
+                      <Component id="jLabel1" pref="404" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="39" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" pref="433" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="jTextArea2">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="1"/>
+                </Property>
+                <Property name="rows" type="int" value="5"/>
+                <Property name="text" type="java.lang.String" value="#include &lt;ESP8266WiFi.h&gt;&#xa;#include &lt;WiFiClient.h&gt;&#xa;#include &lt;ESP8266WebServer.h&gt;&#xa;&#xa;#define led1 D0&#xa;#define led2 D4&#xa;&#xa;ESP8266WebServer server(80);&#xa;&#xa;const char* ssid = &quot;NodeMCU ESP8266 (Mithun)&quot;;&#xa;&#xa;String str = &quot;&quot;;&#xa;&#xa;void setup() {&#xa;&#xa;  Serial.begin(115200);&#xa;&#xa;  pinMode(led1, OUTPUT);&#xa;  pinMode(led2, OUTPUT);&#xa;&#xa;  // Connecting WiFi&#xa;&#xa;  WiFi.mode(WIFI_AP);&#xa;  WiFi.softAP(ssid, &quot;87654321&quot;);&#xa;&#xa;  Serial.print(&quot;\u005cnAP IP address: &quot;);&#xa;  Serial.println(WiFi.softAPIP());&#xa;&#xa;  // Starting WEB-server&#xa;  server.on ( &quot;/test&quot;, fnc );&#xa;  server.onNotFound ( html );&#xa;  server.begin();&#xa;}&#xa;&#xa;void loop() {&#xa;  server.handleClient();&#xa;  if (!server.hasArg(&quot;m2n&quot;) || str == server.arg(&quot;m2n&quot;)) {&#xa;    return;&#xa;  }&#xa;  str = server.arg(&quot;m2n&quot;);&#xa;  Serial.println(&quot;&gt;&gt; &quot; + str);&#xa;&#xa;  if (str == &quot;@i1&quot; || str == &quot;@m1&quot;) {&#xa;    digitalWrite(led1, 1);&#xa;  }&#xa;  else if (str == &quot;@i0&quot; || str == &quot;@m0&quot;) {&#xa;    digitalWrite(led1, 0);&#xa;  }&#xa;  else if (str == &quot;@j1&quot; || str == &quot;@n1&quot;) {&#xa;    digitalWrite(led2, 1);&#xa;  }&#xa;  else if (str == &quot;@j0&quot; || str == &quot;@n0&quot;) {&#xa;    digitalWrite(led2, 0);&#xa;  }&#xa;&#xa;  else if (str == &quot;@k1&quot; || str == &quot;off&quot;) {&#xa;    digitalWrite(led1, 1);&#xa;    digitalWrite(led2, 1);&#xa;  }&#xa;  else if (str == &quot;@k0&quot; || str == &quot;on&quot;) {&#xa;    digitalWrite(led1, 0);&#xa;    digitalWrite(led2, 0);&#xa;  }&#xa;&#xa;  else if (str == &quot;@l0&quot;) {&#xa;    digitalWrite(led1, 1);&#xa;    digitalWrite(led2, 0);&#xa;  }&#xa;  //-------------&#xa;  else if (str == &quot;@uu&quot;) {&#xa;    digitalWrite(led1, 0);&#xa;  }&#xa;  else if (str == &quot;@dd&quot;) {&#xa;    digitalWrite(led1, 0);&#xa;  }&#xa;  else if (str == &quot;@ll&quot;) {&#xa;    digitalWrite(led1, 0);&#xa;  }&#xa;  else if (str == &quot;@rr&quot;) {&#xa;    digitalWrite(led1, 0);&#xa;  }&#xa;  else if (str == &quot;@oo&quot;) {&#xa;    digitalWrite(led1, 1);&#xa;  }&#xa;  //----------&#xa;  else if (str == &quot;@up&quot;) {&#xa;    digitalWrite(led2, 0);&#xa;  }&#xa;  else if (str == &quot;@dw&quot;) {&#xa;    digitalWrite(led2, 0);&#xa;  }&#xa;  else if (str == &quot;@lf&quot;) {&#xa;    digitalWrite(led2, 0);&#xa;  }&#xa;  else if (str == &quot;@rg&quot;) {&#xa;    digitalWrite(led2, 0);&#xa;  }&#xa;  else if (str == &quot;@st&quot;) {&#xa;    digitalWrite(led2, 1);&#xa;  }&#xa;  //-----------&#xa;  else if (str == &quot;@l1&quot;) {&#xa;    digitalWrite(led1, 0);&#xa;    digitalWrite(led2, 1);&#xa;  }&#xa;  else if (str.substring(0, 2) == &quot;@x&quot;) {&#xa;    if (str.substring(2, str.length()).toInt() &lt;= 50) {&#xa;      digitalWrite(led1, 0);&#xa;      digitalWrite(led2, 1);&#xa;    }&#xa;    else {&#xa;      digitalWrite(led1, 1);&#xa;      digitalWrite(led2, 0);&#xa;    }&#xa;  }&#xa;  else if (str.substring(0, 2) == &quot;@x&quot;) {&#xa;    if (str.substring(2, str.length()).toInt() &lt;= 50) {&#xa;      digitalWrite(led1, 0);&#xa;      digitalWrite(led2, 1);&#xa;    }&#xa;    else {&#xa;      digitalWrite(led1, 1);&#xa;      digitalWrite(led2, 0);&#xa;    }&#xa;  }&#xa;  else if (str.substring(0, 2) == &quot;@y&quot;) {&#xa;    if (str.substring(2, str.length()).toInt() %2 == 0) {&#xa;      digitalWrite(led1, 0);&#xa;      digitalWrite(led2, 1);&#xa;    }&#xa;    else {&#xa;      digitalWrite(led1, 1);&#xa;      digitalWrite(led2, 0);&#xa;    }&#xa;  }&#xa;&#xa;&#xa;}&#xa;void fnc() {&#xa;  Serial.println(&quot;Example&quot;);&#xa;  server.send (200, &quot;&lt;!DOCTYPE HTML&gt;&quot;);&#xa;}&#xa;&#xa;void html() {&#xa;  server.send (200, &quot;&lt;!DOCTYPE HTML&gt;&quot;);&#xa;}" containsInvalidXMLChars="true"/>
+                <Property name="autoscrolls" type="boolean" value="false"/>
+                <Property name="opaque" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="24" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Testing / Example With Led (AP)"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
